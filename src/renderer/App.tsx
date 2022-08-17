@@ -6,43 +6,16 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { useEffect, useState } from 'react';
 
 const Hello = () => {
-  const [seconds, setSeconds] = useState(0);
-  const [isActive, setIsActive] = useState(false);
-  const totalSeconds = 20 * 60;
-  function toggle() {
-    setIsActive(!isActive);
-  }
-
-  function reset() {
-    setSeconds(0);
-    setIsActive(false);
-  }
-  useEffect(() => {
-    let interval: any = null;
-    if (isActive) {
-      interval = setInterval(() => {
-        setSeconds(() => seconds + 1);
-      }, 1000);
-    if (seconds == totalSeconds){
-      reset()
-    }
-    } else if (!isActive && seconds !== 0) {
-      clearInterval(interval);
-    }
-    return () => clearInterval(interval);
-  }, [isActive, seconds]);
-
-  let percentage = Math.round(seconds/totalSeconds) * 100;
-  let minutes = Math.floor(seconds / 60);
-  let seconds_left:any = seconds % 60
-  if (seconds < 10){
-      seconds_left = '0'+seconds
-  }
+  const [seconds,setSeconds] = useState(25)
+  let isActive = false
+  let toggle = true
+  let reset = null
+  const percentage = seconds/100
   return (
     <div>
       <CircularProgressbar
         value={percentage}
-        text={`${seconds_left}`}
+        text={`${seconds}`}
         styles={buildStyles({
           // Rotation of path and trail, in number of turns (0-1)
           rotation: 0.25,
